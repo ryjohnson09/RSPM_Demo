@@ -1,0 +1,70 @@
+---
+title: "RSPM Demo"
+output: html_document
+---
+
+```{r}
+options(renv.config.cache.enabled = FALSE)
+```
+
+## Install a package
+
+```{r}
+install.packages("ggplot2")
+packageVersion("ggplot2")
+```
+
+## Where did I install it from?
+
+```{r}
+# Check my repo
+options("repos")
+```
+
+## How fast are binaries?
+
+```{r}
+# Set repo to non-binary ggplot2
+options(repos = c(REPO_NAME = "https://colorado.rstudio.com/rspm/all/latest"))
+
+system.time({install.packages("ggplot2", repos = "https://colorado.rstudio.com/rspm/all/latest")})
+```
+
+```{r}
+# Set repo to binary ggplot2
+options(repos = c(REPO_NAME = "https://colorado.rstudio.com/rspm/all/__linux__/bionic/latest"))
+
+system.time({install.packages("ggplot2", repo = "https://colorado.rstudio.com/rspm/all/__linux__/bionic/latest")})
+```
+
+## Go back in time
+
+Let's install `ggplot2` as if we were back in November of 2020
+
+```{r}
+# Set repo to binary ggplot2 from Nov 2nd, 2020
+options(repos = c(REPO_NAME = "https://colorado.rstudio.com/rspm/cran/__linux__/focal/2020-11-02"))
+
+# Install 
+install.packages("ggplot2", repos = "https://colorado.rstudio.com/rspm/cran/__linux__/focal/2020-11-02")
+
+packageVersion("ggplot2")
+```
+
+## Install from Bioconductor
+
+Set my Bioconductor mirror to RSPM
+
+```{r}
+options(repos = c(CRAN = "https://colorado.rstudio.com/rspm/cran/__linux__/focal/latest"))
+```
+
+Install a bioconductor package
+
+```{r}
+# First install BiocManager
+install.packages("BiocManager")
+
+# Install Biobase
+BiocManager::install('Biobase', force = TRUE)
+```
